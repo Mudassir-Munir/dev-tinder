@@ -1,0 +1,26 @@
+{
+  "name": "dev-tinder",
+  "version": "1.0.0",
+  "description": "dev tinder for software developres",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mudassir-Munir/dev-tinder.git"
+  },
+  "keywords": [
+    "nodejs",
+    "javascript"
+  ],
+  "author": "Mudassir Munir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mudassir-Munir/dev-tinder/issues"
+  },
+  "homepage": "https://github.com/Mudassir-Munir/dev-tinder#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
