@@ -70,6 +70,36 @@ app.get("/user", async (req, res) => {
     }
 })
 
+app.delete("/user", async (req, res) => {
+    const userId = req.body.userId;
+    try {
+        await User.findByIdAndDelete({_id:userId});
+        // await User.findByIdAndDelete(userId);
+        // use findOneAndDelete() to pass filter value other than _id
+        res.send("user deleted successfully");
+    }
+    catch (err)
+    {
+        res.status(500).send("Someting went wrong: " + err.message);
+    }
+});
+
+app.patch("/user", async (req, res) => {
+    const userId = req.body.userId;
+    const data = req.body;
+    try {
+        await User.findByIdAndUpdate({_id:userId}, data);
+        // await User.findByIdAndUpdate(userId, req.body);
+        // use findOneAndUpdate() to pass filter value other than _id
+        res.send("user updated successfully");
+    }
+    catch (err)
+    {
+        res.status(500).send("Someting went wrong: " + err.message);
+    }
+});
+
+
 connectDB()
 .then(() => {
     app.listen(7777, () => {
