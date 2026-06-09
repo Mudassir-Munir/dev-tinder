@@ -41,7 +41,7 @@ const userSchema = new mongoose.Schema({
         default: "https://geographyandyou.com/images/user-profile.png",
     },
     skills: {
-        type: [string],
+        type: [String],
     }
 },
 {
