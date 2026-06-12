@@ -3,10 +3,14 @@ const connectDB = require("./config/database");
 const User = require("./models/user");
 const {validateSignUpData} = require("./utils/validations");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const {UserAuth} = require("./middlewares/auth");
 
 const app = express();
 
 app.use(express.json());
+app.use(cookieParser());
 
 
 app.post("/signup", async (req, res) => {
@@ -142,7 +146,10 @@ app.post("/login", async (req, res) => {
 
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (isPasswordValid) {
-        res.send("Login Successfull!")
+
+        const token = await jwt.sign({_id: user._id}, "DEV@TINDER$790");
+        res.cookie("token", token);
+        res.send("Login Successfull!");
       } else {
         throw new Error("password is not correct");
       }
@@ -151,6 +158,15 @@ app.post("/login", async (req, res) => {
        res.status(500).send("error: " + err.message);
     }
 
+});
+
+app.get("/profile", UserAuth, async (req, res)=> {
+    try{
+       const user = req.user;
+       res.send(user);
+    } catch(err) {
+        res.status(500).send("error: " + err.message);
+    }
 });
 
 connectDB()
